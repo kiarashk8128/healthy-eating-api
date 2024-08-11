@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+pycache/
 *.py[cod]
 *$py.class
 
@@ -25,11 +25,20 @@ wheels/
 *.egg
 MANIFEST
 
+# Django
+*.log
+*.pot
+*.pyc
+*.mo
+*.sqlite3
+
 # Virtual environments
 venv/
 ENV/
 env/
 .venv/
+.env
+staticfiles/
 
 # Jupyter Notebook
 .ipynb_checkpoints
