@@ -3,6 +3,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from accounts.models import CustomUser, FamilyMember
 
+
 class SignupTests(APITestCase):
 
     def test_signup_individual_user(self):
