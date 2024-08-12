@@ -3,12 +3,14 @@ name: CI
 on: [push, pull_request]
 
 env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DEBUG: ${{ vars.DEBUG }}
-      ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
-      POSTGRES_NAME: ${{ vars.POSTGRES_NAME }}
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEBUG: ${{ vars.DEBUG }}
+  ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS }}
+  POSTGRES_NAME: ${{ vars.POSTGRES_NAME }}
+  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,9 +20,10 @@ jobs:
         image: postgres:13
         env:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         options: >-
-          --health-cmd="pg_isready -U test_user -d test_db"
+          --health-cmd="pg_isready -U ${{ vars.POSTGRES_USER }} -d ${{ vars.POSTGRES_DB }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
