@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.http import HttpResponse
 from .serializers import UserSerializer
 
 
@@ -20,3 +21,7 @@ def signup(request):
             'is_family_head': user.is_family_head
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def homepage(request):
+    return HttpResponse("Welcome to the Homepage!")
