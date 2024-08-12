@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         if not username:
@@ -13,23 +12,29 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, email=None, password=None, **extra_fields):
+        # Superuser doesn't need to provide these fields
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
+        # Remove fields not required for superuser
+        extra_fields.pop('birthday', None)
+        extra_fields.pop('gender', None)
+        extra_fields.pop('height', None)
+        extra_fields.pop('weight', None)
+        extra_fields.pop('is_family_head', None)
+
         return self.create_user(username, email, password, **extra_fields)
 
-
 class CustomUser(AbstractUser):
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
-                              blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')], blank=True, null=True)
     height = models.FloatField(blank=True, null=True)  # Height in cm
     weight = models.FloatField(blank=True, null=True)  # Weight in kg
-    is_family_head = models.BooleanField(default=False)  # Indicates if the user is the head of a family
+    is_family_head = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -40,22 +45,14 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-class Family(models.Model):
-    head = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='family_head')
-    members = models.ManyToManyField('FamilyMember', related_name='families')
-
-    def __str__(self):
-        return f"{self.head.username}'s Family"
-
-
 class FamilyMember(models.Model):
+    family_head = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='family_members')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     birthday = models.DateField()
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     height = models.FloatField()  # Height in cm
     weight = models.FloatField()  # Weight in kg
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='family_members')
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
