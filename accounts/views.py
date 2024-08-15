@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from .serializers import CustomUserSerializer
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 @api_view(['POST'])
@@ -23,5 +24,6 @@ def signup(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@ensure_csrf_cookie
 def homepage(request):
     return HttpResponse("Welcome to the Homepage!")
