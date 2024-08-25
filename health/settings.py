@@ -30,6 +30,7 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
+    'nutrition',
     'accounts',
     'grappelli',
     'django.contrib.admin',
