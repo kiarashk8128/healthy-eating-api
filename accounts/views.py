@@ -1,11 +1,10 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from django.contrib.auth import login
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .serializers import CustomUserSerializer, LoginSerializer
-from rest_framework.permissions import AllowAny
 
 
 @api_view(['POST'])
@@ -49,3 +48,7 @@ def login_view(request):
 @ensure_csrf_cookie
 def homepage(request):
     return HttpResponse("Welcome to the Homepage!")
+
+
+def health_check(request):
+    return HttpResponse("OK", content_type="text/plain")
