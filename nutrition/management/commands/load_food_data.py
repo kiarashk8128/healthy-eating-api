@@ -33,12 +33,10 @@ class Command(BaseCommand):
                 food_group = FoodGroup.objects.get(fgcat_id=row['fgcat_id'])
                 # Now, create or update the Food object
                 Food.objects.update_or_create(
-                    food=row['food'],
-                    defaults={
-                        'fgid': row['fgid'],
-                        'fgcat_id': food_group,  # Assign the FoodGroup instance
-                        'srvg_sz': row['srvg_sz'],
-                    }
+                    food = row['food'],
+                    fgid = row['fgid'],
+                    fgcat_id = food_group,  # Assign the FoodGroup instance
+                    srvg_sz = row['srvg_sz'],
                 )
 
     def load_servings_per_day(self):
@@ -48,8 +46,8 @@ class Command(BaseCommand):
                 ServingPerDay.objects.update_or_create(
                     gender=row['gender'],
                     ages=row['ages'],
+                    fgid=row['fgid'],
                     defaults={
-                        'fgid': row['fgid'],
                         'servings': row['servings'],
                     }
                 )
@@ -59,8 +57,6 @@ class Command(BaseCommand):
             reader = csv.DictReader(csvfile)
             for row in reader:
                 DirectionalStatement.objects.update_or_create(
-                    fgid=row['fgid'],
-                    defaults={
-                        'directional_statement': row['directional-statement'],
-                    }
+                    directional_statement = row['directional-statement'],
+                    fgid = row['fgid'],
                 )
