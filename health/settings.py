@@ -153,7 +153,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173"
+    "http://localhost:5173",
     "http://localhost:3000",  # React development server
     "http://127.0.0.1:3000",  # Another common localhost address
     "http://0.0.0.0:3000",    # Another possible localhost address
@@ -162,5 +162,3 @@ CORS_ALLOWED_ORIGINS = [
     "http://0.0.0.0",         # In case you're using port 80 directly without specifying
     "http://localhost:80"
 ]
-
-CORS_ALLOW_ALL_ORIGINS = True
