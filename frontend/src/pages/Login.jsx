@@ -1,18 +1,31 @@
 // import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 import '../LoginSignup.css';
 import healthyFoodImage from '../assets/Healthy-eating.jpg';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic to handle login using formData goes here
+        try {
+            const response = await axios.post('http://localhost/auth/login/', formData);
+            localStorage.setItem('token', response.data.access);
+            setSuccess('Login successful!');
+            setError('');
+            console.log('Login successful!', response.data);
+        } catch (err) {
+            console.error('Login failed:', err.response.data);
+            setError('Invalid username or password');
+            setSuccess('');
+        }
     };
 
     return (
@@ -22,6 +35,8 @@ const Login = () => {
             </div>
             <div className="form-content">
                 <h1>Login</h1>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {success && <p style={{ color: 'green' }}>{success}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
