@@ -56,3 +56,45 @@
 .form-content button:hover {
     background-color: #0056b3;
 }
+
+
+.family-members-section {
+    margin-top: 20px;
+}
+
+.family-member {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.family-member input,
+.family-member select {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.family-member button {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.family-member button:hover {
+    background-color: darkred;
+}
+
+button[type="button"] {
+    margin-top: 10px;
+    background-color: #28a745;
+}
+
+button[type="button"]:hover {
+    background-color: #218838;
+}

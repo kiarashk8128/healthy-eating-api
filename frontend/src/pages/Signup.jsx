@@ -18,6 +18,7 @@ const Signup = () => {
         is_family_head: false,
         family_members: [],
     });
+    const [familyMemberData, setFamilyMemberData] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -25,10 +26,30 @@ const Signup = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleFamilyMemberChange = (index, e) => {
+        const updatedFamilyMembers = [...familyMemberData];
+        updatedFamilyMembers[index][e.target.name] = e.target.value;
+        setFamilyMemberData(updatedFamilyMembers);
+    };
+
+    const addFamilyMember = () => {
+        setFamilyMemberData([
+            ...familyMemberData,
+            { first_name: '', last_name: '', birthday: '', gender: '', height: '', weight: '' }
+        ]);
+    };
+
+    const removeFamilyMember = (index) => {
+        const updatedFamilyMembers = [...familyMemberData];
+        updatedFamilyMembers.splice(index, 1);
+        setFamilyMemberData(updatedFamilyMembers);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const dataToSubmit = { ...formData, family_members: familyMemberData };
         try {
-            const response = await axios.post('http://localhost/auth/signup/', formData);
+            const response = await axios.post('http://localhost/auth/signup/', dataToSubmit);
             setSuccess('Signup successful!');
             setError('');
             console.log('Signup successful!', response.data);
@@ -119,13 +140,67 @@ const Signup = () => {
                             type="checkbox"
                             name="is_family_head"
                             checked={formData.is_family_head}
-                            onChange={(e) =>
-                                setFormData({ ...formData, is_family_head: e.target.checked })
-                            }
+                            onChange={(e) => setFormData({ ...formData, is_family_head: e.target.checked })}
                         />
                         Are you the family head?
                     </label>
-                    {/* Add fields for family members if needed */}
+
+                    {formData.is_family_head && (
+                        <div className="family-members-section">
+                            <h2>Family Members</h2>
+                            {familyMemberData.map((member, index) => (
+                                <div key={index} className="family-member">
+                                    <input
+                                        type="text"
+                                        name="first_name"
+                                        placeholder="First Name"
+                                        value={member.first_name}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    />
+                                    <input
+                                        type="text"
+                                        name="last_name"
+                                        placeholder="Last Name"
+                                        value={member.last_name}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    />
+                                    <input
+                                        type="date"
+                                        name="birthday"
+                                        value={member.birthday}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    />
+                                    <select
+                                        name="gender"
+                                        value={member.gender}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    >
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <input
+                                        type="number"
+                                        name="height"
+                                        placeholder="Height (cm)"
+                                        value={member.height}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    />
+                                    <input
+                                        type="number"
+                                        name="weight"
+                                        placeholder="Weight (kg)"
+                                        value={member.weight}
+                                        onChange={(e) => handleFamilyMemberChange(index, e)}
+                                    />
+                                    <button type="button" onClick={() => removeFamilyMember(index)}>Remove</button>
+                                </div>
+                            ))}
+                            <button type="button" onClick={addFamilyMember}>Add Family Member</button>
+                        </div>
+                    )}
+
                     <button type="submit">Sign Up</button>
                 </form>
             </div>
