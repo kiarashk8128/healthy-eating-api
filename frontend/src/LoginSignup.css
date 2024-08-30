@@ -1,0 +1,100 @@
+/* Common styles for both Login and Signup pages */
+.form-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.image-container img {
+    max-width: 80%;
+    height: auto;
+}
+
+.form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.form-content h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.form-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-content input,
+.form-content select {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-content button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.form-content button:hover {
+    background-color: #0056b3;
+}
+
+
+.family-members-section {
+    margin-top: 20px;
+}
+
+.family-member {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.family-member input,
+.family-member select {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.family-member button {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.family-member button:hover {
+    background-color: darkred;
+}
+
+button[type="button"] {
+    margin-top: 10px;
+    background-color: #28a745;
+}
+
+button[type="button"]:hover {
+    background-color: #218838;
+}
