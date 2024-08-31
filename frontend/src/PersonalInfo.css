@@ -1,0 +1,23 @@
+.personal-info-container {
+    padding: 20px;
+}
+
+.personal-details, .family-members-section {
+    margin-bottom: 20px;
+}
+
+.personal-details p, .family-members-section p {
+    margin: 5px 0;
+}
+
+.family-members-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.family-members-section li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
