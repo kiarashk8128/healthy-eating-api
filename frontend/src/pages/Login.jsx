@@ -1,5 +1,5 @@
-// import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Updated import
 import axios from 'axios';
 import '../LoginSignup.css';
 import healthyFoodImage from '../assets/Healthy-eating.jpg';
@@ -8,6 +8,7 @@ const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();  // Updated to useNavigate
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +21,7 @@ const Login = () => {
             localStorage.setItem('token', response.data.access);
             setSuccess('Login successful!');
             setError('');
-            console.log('Login successful!', response.data);
+            navigate('/main');  // Updated to navigate to the main page after successful login
         } catch (err) {
             console.error('Login failed:', err.response.data);
             setError('Invalid username or password');
