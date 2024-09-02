@@ -41,7 +41,7 @@ class ServingPerDay(models.Model):
     servings = models.CharField(max_length=50, default='Unknown')
 
     def __str__(self):
-        return f"{self.gender} ({self.ages}) - {self.servings} servings"
+        return f"{self.gender} ({self.ages}) - {self.servings} servings - {self.fgid} fgid"
 
 
 class Menu(models.Model):
