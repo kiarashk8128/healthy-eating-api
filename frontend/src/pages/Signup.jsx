@@ -1,5 +1,5 @@
-// import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Updated import
 import axios from 'axios';
 import '../LoginSignup.css';
 import healthyFoodImage from '../assets/Healthy-eating.jpg';
@@ -21,6 +21,7 @@ const Signup = () => {
     const [familyMemberData, setFamilyMemberData] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate(); // Updated to useNavigate
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,6 +54,7 @@ const Signup = () => {
             setSuccess('Signup successful!');
             setError('');
             console.log('Signup successful!', response.data);
+            navigate('/login'); // Redirect to login page after successful signup
         } catch (err) {
             console.error('Signup failed:', err.response.data);
             setError(err.response.data);
@@ -117,9 +119,9 @@ const Signup = () => {
                         onChange={handleChange}
                     >
                         <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
                     </select>
                     <input
                         type="number"
@@ -176,9 +178,9 @@ const Signup = () => {
                                         onChange={(e) => handleFamilyMemberChange(index, e)}
                                     >
                                         <option value="">Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                     <input
                                         type="number"

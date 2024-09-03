@@ -1,0 +1,63 @@
+.menu-container {
+    padding: 20px;
+}
+
+.menu-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.menu-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-menu-section {
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.user-menu-section h2 {
+    margin-bottom: 10px;
+}
+
+.menu-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.menu-table th, .menu-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.menu-table th {
+    background-color: #f4f4f4;
+}
+
+.generate-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
+
+.generate-button:hover {
+    background-color: #218838;
+}
