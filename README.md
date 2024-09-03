@@ -18,7 +18,7 @@
 10. [Testing](#testing)
     - [Automated Tests](#automated-tests)
     - [Manual Tests](#manual-tests)
-11. [Deployment](#deployment)
+11. [Docker-Compose and Nginx Configuration](#docker-compose-and-nginx-configuration)
     - [Docker and Docker-Compose](#docker-and-docker-compose)
     - [Nginx Configuration](#nginx-configuration)
 12. [Frontend Overview](#frontend-overview)
@@ -120,7 +120,7 @@ Before setting up the project, ensure you have the following installed on your s
 
         cd frontend
         npm install
-        Running the Project
+### Running the Project
 
 5. **Run the Project Using Docker Compose**
 
@@ -133,12 +133,6 @@ Before setting up the project, ensure you have the following installed on your s
 6. **Access the Application**
 
     Once all containers are running, you can access the application at http://localhost in your browser.
-
-### Running Tests
-
-  To run the tests for backend(hint: if you are not using docker-compose, delete 'docker-compose exec backend' part):
-  
-        docker-compose exec backend python manage.py test accounts.tests
 
 ## Project Structure
 
@@ -328,3 +322,98 @@ After loading the data, verify that the food items, food groups, and serving rec
 
 By following these steps, the Healthy Menu project generates a balanced, nutritious weekly menu tailored to the specific needs of each user.
 
+
+## Security Measures
+
+Security is a critical aspect of the Healthy Menu project. The following measures have been implemented to ensure the protection of user data and the integrity of the application:
+
+### Authentication and Authorization
+- **JWT (JSON Web Token)**: The application uses JWT for secure user authentication. Tokens are issued upon successful login and must be included in the header of subsequent requests to access protected resources.
+- **Role-Based Access Control**: Different levels of access are enforced based on user roles (e.g., regular users vs. admins). Sensitive operations are restricted to authorized users only.
+
+### Data Encryption
+- **Password Hashing**: User passwords are securely hashed using Django's built-in `make_password` function before being stored in the database. This ensures that passwords are not stored in plain text.
+- **SSL/TLS**: The application is configured to use SSL/TLS for encrypting data in transit, protecting it from interception during transmission over the network.
+
+### Input Validation and Sanitization
+- **Form Validation**: All user inputs are validated on the server-side to prevent common attacks such as SQL injection and XSS (Cross-Site Scripting). 
+- **CSRF Protection**: Django's CSRF protection is enabled to guard against Cross-Site Request Forgery attacks. This ensures that requests made to the server originate from trusted sources.
+
+### Error Handling and Logging
+- **Error Handling**: The application is configured to handle errors gracefully. Sensitive information is not exposed to end-users; instead, generic error messages are displayed.
+- **Logging**: Important events, such as failed login attempts and unauthorized access, are logged for monitoring and auditing purposes.
+
+### Secure Data Storage
+- **Database Security**: Access to the database is restricted to authorized users only. The database credentials are stored securely using environment variables.
+- **Data Retention Policies**: Personal data is retained only for as long as necessary, and users have the option to delete their accounts, which triggers the removal of their data.
+
+---
+
+## Testing
+
+Comprehensive testing is crucial for ensuring the reliability and stability of the Healthy Menu project. Both automated and manual tests are employed to cover various aspects of the application.
+
+### Automated Tests
+
+Automated tests are executed as part of the CI/CD pipeline to catch regressions and ensure that the application behaves as expected after code changes. The following types of automated tests are included:
+
+- **Unit Tests**: These tests focus on individual components and functions within the application, ensuring they produce the correct output given specific inputs.
+- **Integration Tests**: These tests verify that different parts of the application work together as intended. For example, integration tests ensure that the backend APIs interact correctly with the database.
+- **End-to-End Tests**: These tests simulate user interactions with the application to validate the entire user flow, from logging in to generating a menu.
+
+### Manual Tests
+
+In addition to automated tests, manual testing is performed to catch issues that may not be easily detected by automated tests. Manual testing focuses on:
+
+- **User Interface (UI) Testing**: Ensuring that the frontend is responsive, user-friendly, and free of visual bugs.
+- **Usability Testing**: Observing how real users interact with the application to identify any usability issues or areas for improvement.
+- **Exploratory Testing**: Manually testing various parts of the application without predefined test cases to discover unexpected behaviors or edge cases.
+
+---
+
+### Automated Tests
+
+Automated tests are implemented using Django's testing framework for the backend and Jest for the frontend. These tests are designed to run automatically as part of the continuous integration (CI) process.
+
+- **Testing Framework**: Django's built-in test framework is used to write and run backend tests.
+- **Test Cases**: Tests are organized by modules and cover different aspects of the application, such as user authentication, menu generation, and data validation.
+- **Running Tests**: To run the automated tests for the backend, use the following command:
+
+  ```bash
+   docker-compose exec backend python manage.py test accounts.tests
+
+
+## Docker-Compose and Nginx Configuration
+
+### Docker and Docker-Compose
+
+   The Healthy Menu project uses Docker to containerize the application, making it easier to deploy and manage. Docker Compose is used to orchestrate the various containers required by the application.
+
+   The Django application runs in its own container. The Dockerfile in the backend/ directory defines the image, which includes the Python environment and all necessary dependencies.
+
+   A PostgreSQL database container is used to store application data.
+
+### Nginx Configuration
+   Nginx is used as a reverse proxy to route traffic between the frontend and backend services and to serve static files efficiently.
+   
+   **Static Files**: Nginx serves static files directly from the /static/ directory, improving the performance of the application.
+   
+   **Reverse Proxy**: Requests to the root URL (/) are forwarded to the frontend, while API requests (/api/) are routed to the Django backend.
+
+   **Security:** Nginx is configured to handle SSL/TLS certificates, providing encrypted communication between the client and server.
+
+
+## Frontend Overview
+The frontend of the Healthy Menu project is built using React, a popular JavaScript library for building user interfaces. The frontend interacts with the backend API to fetch data and display it to users in a responsive and user-friendly manner.
+
+### Key Components
+
+**Landing Page**: The main entry point of the application, providing an overview of the features and a call to action for users to log in or sign up.
+
+**Login/Signup Pages**: These pages allow users to authenticate themselves and create new accounts.
+
+**Main Page**: After logging in, users are taken to the main page, where they can view and manage their profile, family members, and dietary preferences.
+
+**Menu Page**: The core feature of the application, where users can generate and view their weekly menu based on the dietary guidelines.
+
+**Personal Info** Page: Allows users to update their personal information, such as height, weight, and age, which influence the generated menu.
