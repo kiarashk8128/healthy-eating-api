@@ -138,7 +138,7 @@ Before setting up the project, ensure you have the following installed on your s
 
 ## Project Structure
 
-The Healthy Menu project is organized into the following structure:
+   The Healthy Menu project is organized into the following structure:
 
     healthy-menu/
     │
@@ -234,3 +234,93 @@ The Healthy Menu project is organized into the following structure:
         └── workflows/              # GitHub actions workflows
             └── ci.yml              # Continuous integration configuration
     
+## Models and Database
+
+The backend of the Healthy Menu project uses Django's ORM to define the core models that represent the data structure of the application. Below are the primary models and their purposes:
+
+- **CustomUser**:
+  - Stores user-specific data, including authentication credentials and profile information.
+  - Acts as the main user entity in the application.
+
+- **FamilyMember**:
+  - Represents additional family members associated with a user.
+  - Stores relevant data like name, age, gender, height, weight, and dietary requirements.
+
+- **FoodGroup**:
+  - Defines categories of food items, such as Vegetables, Fruits, Grains, etc.
+  - Contains fields like `fgid`, `fgcat_id`, `fgcat`, and `foodgroup`.
+
+- **Food**:
+  - Stores individual food items, including their group category, serving sizes, and nutritional information.
+  - Linked to `FoodGroup` via a foreign key.
+
+- **ServingPerDay**:
+  - Specifies the recommended daily servings for different age groups and genders.
+  - Linked to the corresponding food groups.
+
+- **Menu**:
+  - Represents a generated menu for a user or family member.
+  - Stores the meals for each day of the week, including the food items and serving sizes.
+
+### Database Initialization
+
+The database is initialized with a set of predefined food groups, foods, and serving recommendations. These are loaded into the database during setup using Django’s migration and fixture system.
+
+   **Apply Migrations**: Run migrations to create the necessary tables in the database.
+   
+         docker-compose exec backend python manage.py makemigrations
+         docker-compose exec backend python manage.py migrate
+
+
+## Logic and Algorithms
+
+### Menu Generation Logic
+   The logic for generating a healthy menu is based on a combination of user data, food serving requirements, and directional statements (guidelines). The process follows these steps:
+
+   **User Data**: The user's age, gender, and dietary preferences are taken into account.
+   
+   **Serving Requirements**: The daily servings required for different food groups are determined based on the user's age and gender.
+   
+   **Directional Statements**: Guidelines such as "Make half your grains whole grains" or "Choose lower-fat milk products" are applied to ensure a balanced and healthy menu.
+   
+   **Food Selection**: Food items are randomly selected from the available options within each food group to fulfill the serving requirements.
+   
+   **Menu Composition**: The menu is composed for each day of the week, ensuring that all guidelines are met.
+   
+### Loading Food Data
+   The food data, including food groups and serving recommendations, is loaded into the database from CSV files. These CSV files contain the initial dataset required for the application.
+
+Steps to Load Food Data:
+
+**Prepare the CSV Files**:
+
+Ensure that the CSV files are formatted correctly and placed in the data directory.
+
+**Run the Data Load Command**:
+
+Use Django's custom management command to load the food data into the database.
+
+      docker-compose exec backend python manage.py load_food_data
+      
+**Verify the Data**:
+
+After loading the data, verify that the food items, food groups, and serving recommendations have been correctly populated in the database.
+
+### Generating Menus
+   The menu generation algorithm creates a weekly meal plan based on the user's dietary needs and preferences. The process includes:
+
+**Determine Serving Requirements**: Based on the user's age, gender, and dietary restrictions, calculate the daily servings required for each food group.
+
+**Apply Directional Statements**: Ensure that the menu adheres to nutritional guidelines, such as including a specific number of servings of whole grains or vegetables.
+
+ **Random Food Selection**:Randomly select food items from the available options to meet the serving requirements.
+ 
+**Generate Daily Menus**: Compose the menu for each day of the week, ensuring a variety of meals and compliance with nutritional guidelines.
+
+**Final Adjustments**: After the initial menu is generated, apply any necessary adjustments, such as ensuring that vegetables are served more frequently than juice or that lean meats are included.
+
+**Store the Menu**: Once the menu is generated, it is stored in the database associated with the user or family member.
+
+
+By following these steps, the Healthy Menu project generates a balanced, nutritious weekly menu tailored to the specific needs of each user.
+
