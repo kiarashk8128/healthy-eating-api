@@ -101,8 +101,12 @@ Before setting up the project, ensure you have the following installed on your s
   
         DEBUG=True
         SECRET_KEY=your_secret_key
-        DATABASE_URL=postgres://username:password@localhost:5432/healthy_menu_db
-        JWT_SECRET_KEY=your_jwt_secret_key
+        ALLOWED_HOSTS=hosts
+        POSTGRES_NAME=name
+        POSTGRES_DB=database
+        POSTGRES_USER=user
+        POSTGRES_PASSWORD=password
+        POSTGRES_HOST=host
 
 3. **Install Backend Dependencies**
 
@@ -132,7 +136,7 @@ Before setting up the project, ensure you have the following installed on your s
 
 ### Running Tests
 
-  To run the tests for backend:
+  To run the tests for backend(hint: if you are not using docker-compose, delete 'docker-compose exec backend' part):
   
         docker-compose exec backend python manage.py test accounts.tests
 
