@@ -44,7 +44,7 @@
 }
 
 .form-content button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
     background-color: #007bff;
     color: white;
@@ -57,44 +57,26 @@
     background-color: #0056b3;
 }
 
-
-.family-members-section {
-    margin-top: 20px;
-}
-
-.family-member {
-    margin-bottom: 15px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.family-member input,
-.family-member select {
-    flex: 1;
-    padding: 8px;
-    font-size: 14px;
-}
-
-.family-member button {
-    flex: 0 0 auto;
-    padding: 8px 12px;
-    font-size: 14px;
-    background-color: red;
+/* Back button styles (smaller size and fixed width) */
+.back-button {
+    padding: 6px 12px; /* Smaller padding */
+    font-size: 12px; /* Smaller font size */
+    background-color: #6c757d; /* Gray background */
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 200px; /* Fixed width to make it smaller */
+    align-self: center; /* Center the back button */
 }
 
-.family-member button:hover {
-    background-color: darkred;
+.back-button:hover {
+    background-color: #5a6268;
 }
 
-button[type="button"] {
-    margin-top: 10px;
-    background-color: #28a745;
-}
-
-button[type="button"]:hover {
-    background-color: #218838;
+/* Ensure space between all form buttons */
+.form-content button,
+.form-content .back-button {
+    margin-bottom: 15px;
 }

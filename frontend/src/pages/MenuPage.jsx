@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../MenuPage.css';
@@ -6,6 +7,7 @@ const MenuPage = () => {
     const [menus, setMenus] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [familyMembers, setFamilyMembers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -148,6 +150,8 @@ const MenuPage = () => {
                     Generate New Menu for All Users
                 </button>
             )}
+            <button onClick={() => navigate('/main')}>Back to Main Page</button> {/* Back Button */}
+
         </div>
     );
 };
