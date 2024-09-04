@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
 from django.contrib.auth import login
 from django.views.decorators.csrf import ensure_csrf_cookie
+from ratelimit.decorators import ratelimit
+
 from .serializers import CustomUserSerializer, LoginSerializer, FamilyMemberSerializer
 from .models import FamilyMember
 
@@ -59,6 +61,7 @@ class FamilyMembersView(APIView):
 
 
 @api_view(['POST'])
+@ratelimit(key='ip', rate='5/m', block=True, method='POST')
 def signup(request):
     serializer = CustomUserSerializer(data=request.data)
     if serializer.is_valid():
