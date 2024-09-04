@@ -1,5 +1,5 @@
 // import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../PersonalInfo.css';
@@ -7,7 +7,7 @@ import '../PersonalInfo.css';
 const PersonalInfo = () => {
     const [personalInfo, setPersonalInfo] = useState(null);
     const [familyMembers, setFamilyMembers] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -66,6 +66,7 @@ const PersonalInfo = () => {
                     </ul>
                 </div>
             )}
+            <button onClick={() => navigate('/main')}>Back to Main Page</button> {/* Back Button */}
         </div>
     );
 };

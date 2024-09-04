@@ -10,6 +10,7 @@ const MainPage = () => {
             <h1>Welcome to Healthy Eating</h1>
             <button onClick={() => navigate('/personal-info')}>Personal Information</button>
             <button onClick={() => navigate('/menus')}>View Menus</button>
+            <button className="back-button" onClick={() => navigate('/login')}>Back to Login</button> {/* Back Button */}
         </div>
     );
 };

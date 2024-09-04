@@ -205,6 +205,7 @@ const Signup = () => {
 
                     <button type="submit">Sign Up</button>
                 </form>
+                <button className="back-button" onClick={() => navigate('/')}>Back to Landing Page</button> {/* Back Button */}
             </div>
         </div>
     );
