@@ -23,10 +23,6 @@
     - [Nginx Configuration](#nginx-configuration)
 12. [Frontend Overview](#frontend-overview)
 13. [Decision Making](#decision-making)
-14. [Contributing](#contributing)
-15. [License](#license)
-16. [Acknowledgements](#acknowledgements)
-
 
 ## Overview
 Healthy Menu is a comprehensive application designed to help users create weekly meal plans based on their nutritional needs. The application allows users to input their personal data or family members' data, and automatically generates a healthy, balanced menu tailored to their dietary requirements. The menus are generated using a combination of food group data, serving size recommendations, and dietary guidelines.
@@ -417,3 +413,24 @@ The frontend of the Healthy Menu project is built using React, a popular JavaScr
 **Menu Page**: The core feature of the application, where users can generate and view their weekly menu based on the dietary guidelines.
 
 **Personal Info** Page: Allows users to update their personal information, such as height, weight, and age, which influence the generated menu.
+
+## Decision Making
+
+The Healthy Menu project involved several critical decisions to ensure that the application is both functional and maintainable. Below are some of the key decisions made during the development process:
+
+### Technology Stack
+- **Django and React**: Django was chosen for its robust and scalable backend capabilities, particularly its ORM for managing complex database interactions. React was selected for the frontend due to its component-based architecture, making it easier to manage the dynamic user interface.
+
+### Database
+- **PostgreSQL**: Chosen for its reliability and performance, particularly with complex queries and large datasets. Its support for JSONB fields was also considered for potential future enhancements involving more complex data structures.
+
+### Containerization
+- **Docker**: The decision to containerize the application using Docker was made to ensure consistency across development, staging, and production environments. Docker Compose was used to simplify the management of multiple containers.
+
+### Security
+- **JWT Authentication**: JSON Web Tokens were chosen for user authentication due to their stateless nature, which is well-suited for distributed systems and microservices. This decision was made to improve scalability and security.
+- **Environment Variables**: Sensitive information such as secret keys and database credentials are managed through environment variables to enhance security and simplify configuration.
+
+### Frontend Design
+- **Responsive Design**: The decision to implement a fully responsive design ensures that the application is accessible and functional across all device types, including desktops, tablets, and smartphones.
+
