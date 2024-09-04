@@ -23,6 +23,9 @@
     - [Nginx Configuration](#nginx-configuration)
 12. [Frontend Overview](#frontend-overview)
 13. [Decision Making](#decision-making)
+14. [Future Improvements](#future-improvements)
+15. [Github](#github)
+16. [Postman](#postman)
 
 ## Overview
 Healthy Menu is a comprehensive application designed to help users create weekly meal plans based on their nutritional needs. The application allows users to input their personal data or family members' data, and automatically generates a healthy, balanced menu tailored to their dietary requirements. The menus are generated using a combination of food group data, serving size recommendations, and dietary guidelines.
@@ -435,4 +438,47 @@ The Healthy Menu project involved several critical decisions to ensure that the 
 
 ### Frontend Design
 - **Responsive Design**: The decision to implement a fully responsive design ensures that the application is accessible and functional across all device types, including desktops, tablets, and smartphones.
+
+## Future Improvements
+
+The project still can be improved by adding these feature:
+
+- Adding more security phases like HTTPS over HTTP.
+- Have a feature of changing personal information like adding family members, changing password or username.
+
+## Github
+
+The project is deployed on github. I have created a kanban project for creating tasks and having description for them. You can see the overview of tasks in here in the backlog section:
+
+![image](https://github.com/user-attachments/assets/84564a32-906e-48f2-a859-4cc6e6380f90)
+
+Also you can see an example of how tasks have descriptions and changes in status:
+
+![image](https://github.com/user-attachments/assets/ac90bee2-4e1a-47d4-8605-c54913fb114d)
+
+
+Moreover, I used the Roadmap section of the kanban project which shows the path I took for implementing the project:
+
+![image](https://github.com/user-attachments/assets/d7a0464c-d893-4868-adcd-ccbb7c3175dc)
+
+
+Finally, I used github secret variables which enabled the CI process to run in a secret mode without any problems:
+
+![image](https://github.com/user-attachments/assets/4ba47611-c16b-4094-a2a5-a017227b8d88)
+
+![Screenshot from 2024-09-04 11-34-41](https://github.com/user-attachments/assets/979b7eba-f9fa-4e75-9c36-3051053f480a)
+
+
+# Postman
+
+I also created a WorkSpace in the postman as you can see in here:
+
+![image](https://github.com/user-attachments/assets/c93ad244-85b2-4371-97fe-bdc0ab157ccd)
+
+At last, here is a pre-request script to handle CSRF tokens if the request is sent via postman:
+
+![Screenshot from 2024-09-04 11-39-31](https://github.com/user-attachments/assets/c554a587-87c5-4ed7-95f6-4cbc4fbc28f7)
+
+
+
 
