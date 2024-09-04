@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Updated import
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom'; // Updated import
 import axios from 'axios';
 import '../LoginSignup.css';
 import healthyFoodImage from '../assets/Healthy-eating.jpg';
@@ -21,10 +21,13 @@ const Signup = () => {
     const [familyMemberData, setFamilyMemberData] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate(); // Updated to useNavigate
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({...formData, [e.target.name]: e.target.value});
     };
 
     const handleFamilyMemberChange = (index, e) => {
@@ -36,7 +39,7 @@ const Signup = () => {
     const addFamilyMember = () => {
         setFamilyMemberData([
             ...familyMemberData,
-            { first_name: '', last_name: '', birthday: '', gender: '', height: '', weight: '' }
+            {first_name: '', last_name: '', birthday: '', gender: '', height: '', weight: ''}
         ]);
     };
 
@@ -48,29 +51,45 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const dataToSubmit = { ...formData, family_members: familyMemberData };
+        const dataToSubmit = {...formData, family_members: familyMemberData};
         try {
             const response = await axios.post('http://localhost/auth/signup/', dataToSubmit);
             setSuccess('Signup successful!');
             setError('');
+            setUsernameError('');
+            setEmailError('');
+            setPasswordError('');
             console.log('Signup successful!', response.data);
             navigate('/login'); // Redirect to login page after successful signup
         } catch (err) {
-            console.error('Signup failed:', err.response.data);
-            setError(err.response.data);
-            setSuccess('');
+            if (err.response && err.response.status === 400) {
+                if (err.response.data.username) {
+                    console.log("meow1")
+                    setUsernameError(err.response.data.username);  // Display username-specific error
+                }
+                if (err.response.data.email) {
+                    console.log("meow2")
+                    setEmailError(err.response.data.email);  // Display email-specific error
+                }
+                if (err.response.data.password) {
+                    console.log("meow3")
+                    setPasswordError(err.response.data.password);  // Display password-specific error
+                } else {
+                    setError('Signup failed. Please check the fields and try again.');
+                }
+            }
         }
     };
 
     return (
         <div className="form-container">
             <div className="image-container">
-                <img src={healthyFoodImage} alt="Healthy Food" />
+                <img src={healthyFoodImage} alt="Healthy Food"/>
             </div>
             <div className="form-content">
                 <h1>Sign Up</h1>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>{success}</p>}
+                {error && <p style={{color: 'red'}}>{error}</p>}
+                {success && <p style={{color: 'green'}}>{success}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -79,6 +98,8 @@ const Signup = () => {
                         value={formData.username}
                         onChange={handleChange}
                     />
+                    {usernameError && <p style={{ color: 'red' }}>{usernameError}</p>} {/* Display username error */}
+
                     <input
                         type="password"
                         name="password"
@@ -86,6 +107,8 @@ const Signup = () => {
                         value={formData.password}
                         onChange={handleChange}
                     />
+                    {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>} {/* Display username error */}
+
                     <input
                         type="email"
                         name="email"
@@ -93,6 +116,8 @@ const Signup = () => {
                         value={formData.email}
                         onChange={handleChange}
                     />
+                    {emailError && <p style={{ color: 'red' }}>{emailError}</p>} {/* Display username error */}
+
                     <input
                         type="text"
                         name="first_name"
@@ -142,7 +167,7 @@ const Signup = () => {
                             type="checkbox"
                             name="is_family_head"
                             checked={formData.is_family_head}
-                            onChange={(e) => setFormData({ ...formData, is_family_head: e.target.checked })}
+                            onChange={(e) => setFormData({...formData, is_family_head: e.target.checked})}
                         />
                         Are you the family head?
                     </label>
@@ -205,7 +230,8 @@ const Signup = () => {
 
                     <button type="submit">Sign Up</button>
                 </form>
-                <button className="back-button" onClick={() => navigate('/')}>Back to Landing Page</button> {/* Back Button */}
+                <button className="back-button" onClick={() => navigate('/')}>Back to Landing Page</button>
+                {/* Back Button */}
             </div>
         </div>
     );
