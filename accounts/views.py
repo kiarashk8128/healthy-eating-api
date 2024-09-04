@@ -61,7 +61,7 @@ class FamilyMembersView(APIView):
 
 
 @api_view(['POST'])
-@ratelimit(key='ip', rate='5/m', block=True, method='POST')
+@ratelimit(key='ip', rate='7/m', block=True, method='POST')
 def signup(request):
     serializer = CustomUserSerializer(data=request.data)
     if serializer.is_valid():
