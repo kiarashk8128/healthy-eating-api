@@ -62,16 +62,20 @@ const Signup = () => {
             console.log('Signup successful!', response.data);
             navigate('/login'); // Redirect to login page after successful signup
         } catch (err) {
+            setError('');
+            setUsernameError('');
+            setEmailError('');
+            setPasswordError('');
             if (err.response && err.response.status === 400) {
                 if (err.response.data.username) {
                     console.log("meow1")
                     setUsernameError(err.response.data.username);  // Display username-specific error
                 }
-                if (err.response.data.email) {
+                else if (err.response.data.email) {
                     console.log("meow2")
                     setEmailError(err.response.data.email);  // Display email-specific error
                 }
-                if (err.response.data.password) {
+                else if (err.response.data.password) {
                     console.log("meow3")
                     setPasswordError(err.response.data.password);  // Display password-specific error
                 } else {
