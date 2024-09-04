@@ -10,7 +10,7 @@ class SignupTests(APITestCase):
         url = reverse('signup')
         data = {
             "username": "johndoe",
-            "password": "password123",
+            "password": "Passingword123",
             "email": "johndoe@example.com",
             "first_name": "John",
             "last_name": "Doe",
@@ -29,7 +29,7 @@ class SignupTests(APITestCase):
         url = reverse('signup')
         data = {
             "username": "johnfamily",
-            "password": "password123",
+            "password": "Passingword123",
             "email": "johnfamily@example.com",
             "first_name": "John",
             "last_name": "Doe",
@@ -96,7 +96,7 @@ class SignupTests(APITestCase):
         url = reverse('signup')
         data = {
             "username": "johndoe",
-            "password": "password123",
+            "password": "Passingword123",
             "email": "johndoe1@example.com",
             "first_name": "John",
             "last_name": "Doe",
