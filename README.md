@@ -339,10 +339,12 @@ Security is a critical aspect of the Healthy Menu project. The following measure
 - **Error Handling**: The application is configured to handle errors gracefully. Sensitive information is not exposed to end-users; instead, generic error messages are displayed.
 - **Logging**: Important events, such as failed login attempts and unauthorized access, are logged for monitoring and auditing purposes.
 
+### Rate Limits
+- **Rate Limiting**: Rate limiting is implemented for signup and login requests which prevents brute force attacks on these endpoints.
+
 ### Secure Data Storage
 - **Database Security**: Access to the database is restricted to authorized users only. The database credentials are stored securely using environment variables.
 - **Data Retention Policies**: Personal data is retained only for as long as necessary, and users have the option to delete their accounts, which triggers the removal of their data.
-
 ---
 
 ## Testing
